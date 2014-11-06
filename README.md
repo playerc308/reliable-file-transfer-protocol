@@ -10,21 +10,21 @@ The object of this project is to design a simple transport protocol that provide
 ## Implementation
 For sender side, the packet format is designed as follow.
 
-+------------------------------+
-|           BKDRHash           |
-+---------------+--------------+
-| serial number | payload size |
-+---------------+--------------+
-|            payload           |
-+------------------------------+
++------------------------------+<br/>
+|           BKDRHash           |<br/>
++---------------+--------------+<br/>
+| serial number | payload size |<br/>
++---------------+--------------+<br/>
+|            payload           |<br/>
++------------------------------+<br/>
 
 BKDRHash is used to ensure the packet content is correct. If serial number == 0, payload is the file name.
 
 For receiver side, the packet format is very simple.
 
-+---------------+
-| serial number |
-+---------------+
++---------------+<br/>
+| serial number |<br/>
++---------------+<br/>
 
 After the receiver checks there is no error in the packet, it will reply with a serial number.
 
