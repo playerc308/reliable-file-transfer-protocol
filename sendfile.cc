@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <cstdio>
 #include <iostream>
 using namespace std;
 
@@ -39,7 +40,7 @@ int main(int argc, char** argv) {
         file_name = optarg;
         break;
       default:
-        cerr << "Illegal Argument!" << endl;
+        fprintf(stderr, "Illegal Argument!\n");
         return -1;
     }
   }
@@ -48,10 +49,10 @@ int main(int argc, char** argv) {
   char host_name[20];
   int port;
   if (sscanf(conn_info, "%[^:]:%d", host_name, &port) != 2) {
-    cerr << "Illegal Argument!" << endl;
+    fprintf(stderr, "Illegal Argument!\n");
     return -1;
   }
-  //cout << host_name << port << endl;
+  
   hostent* host = gethostbyname(host_name);
   unsigned int addr = *(unsigned int*)host->h_addr_list[0];
   
