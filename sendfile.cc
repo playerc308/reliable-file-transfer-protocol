@@ -67,7 +67,6 @@ int main(int argc, char** argv) {
     return -1;
   }
   
-  
   sockaddr_in sin;
   memset(&sin, 0, sizeof(sin));
   sin.sin_family = AF_INET;
@@ -95,7 +94,6 @@ int main(int argc, char** argv) {
       perror("map file failed!");
       return -1;
     }
-    
     
     int offset = 0;
     int payload_size = (map_size - offset) > MAX_PAYLOAD_SIZE ? MAX_PAYLOAD_SIZE : map_size - offset;
@@ -134,8 +132,17 @@ int main(int argc, char** argv) {
         }
       }
       
+      /* check serial number */
+      if (serial_no != ntohs(*(unsigned short*)recvbuf)) {
+        retransmit = true;
+        continue;
+      } else {
+        retransmit = false;
+      }
+      
       offset += payload_size;
       payload_size = (map_size - offset) ? MAX_PAYLOAD_SIZE : map_size - offset;
+      serial_no++;
     }
     
     /* unmap file into memory */
