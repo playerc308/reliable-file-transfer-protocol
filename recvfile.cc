@@ -129,6 +129,8 @@ int main(int argc, char** argv) {
     	perror("error sending packet");
     	return -1;
     }
+    if(file_size==file_size_rev)
+    	break;
     serial_no=serial_no_rev+1;
     
   }
